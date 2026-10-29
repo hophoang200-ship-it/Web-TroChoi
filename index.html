@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ô ĂN QUAN – Hồn Việt trong từng nước đi</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>Ô ĂN QUAN<small>Hồn Việt trong từng nước đi</small></h1></header>
+<main>
+ <div class="players">
+  <div class="pc p0" id="pc0"><b id="nm0">Bạn</b><span id="cap0"></span><div class="sc" id="sc0">0</div></div>
+  <div class="pc p1" id="pc1"><b id="nm1">Đối thủ</b><span id="cap1"></span><div class="sc" id="sc1">0</div></div>
+ </div>
+ <div id="turn"></div>
+ <div id="board"></div>
+ <div id="dir"></div>
+ <div class="bar">
+  <button class="g" id="bNew">Chơi mới</button><button id="bPause">Tạm dừng</button><button id="bRules">Luật chơi</button><button id="bSnd">Âm thanh: Bật</button><button id="bHint" style="display:none">Gợi ý</button>
+ </div>
+ <div id="log"></div>
+ <p class="tip">Hướng dẫn: nhấn vào ô dân sáng viền vàng ở hàng của bạn (hàng dưới), rồi chọn chiều rải. Hàng trên thuộc về đối thủ.</p>
+</main>
+
+<div class="ov on" id="startOv"><div class="box">
+ <h2>Bắt đầu chơi</h2>
+ <div class="modes" id="modes">
+  <button data-m="pvp">👥 Người với người</button>
+  <button data-m="ai" class="on">🤖 Người với máy</button>
+  <button data-m="practice">📖 Luyện tập (có giải thích &amp; gợi ý)</button>
+ </div>
+ <label>Tên người chơi 1 (hàng dưới)<input id="n0" maxlength="14" value="Bạn"></label>
+ <label>Tên người chơi 2 (hàng trên)<input id="n1" maxlength="14" value="Đối thủ"></label>
+ <label>Độ khó khi đấu với máy<select id="lvl"><option value="easy">Dễ</option><option value="hard" selected>Khó</option></select></label>
+ <label>Điểm một quân quan<select id="qv"><option value="10" selected>10 điểm (mặc định)</option><option value="5">5 điểm</option></select></label>
+ <button class="g" id="go" style="width:100%">Bắt đầu chơi</button>
+</div></div>
+
+<div class="ov" id="rulesOv"><div class="box">
+ <h2>Luật chơi</h2>
+ <ol>
+  <li>Bàn có 10 ô dân (mỗi bên 5 ô) và 2 ô quan ở hai đầu. Mỗi ô dân có 5 quân dân, mỗi ô quan có 1 quân quan.</li>
+  <li>Đến lượt, chọn một ô dân có quân của mình rồi chọn chiều rải (trái hoặc phải). Quân được rải lần lượt, mỗi ô một quân.</li>
+  <li>Rải xong, nếu ô kế tiếp có quân dân thì bốc hết và rải tiếp cùng chiều. Nếu ô kế tiếp là ô quan còn quan thì mất lượt.</li>
+  <li>Nếu ô kế tiếp trống và ô sau nó có quân thì ăn ô đó, rồi tiếp tục nếu lại gặp một ô trống theo sau là ô có quân. Hai ô trống liền nhau thì dừng.</li>
+  <li>Ô quan chỉ ăn được khi có ít nhất 5 quân dân bên cạnh quan (quan “non” thì chưa ăn được).</li>
+  <li>Điểm: 1 quân dân = 1 điểm, 1 quân quan = 10 điểm (có thể đổi lúc bắt đầu).</li>
+  <li>Hết quân trên sân: lấy 5 quân dân đã ăn để rải mỗi ô 1 quân. Nếu không đủ 5 quân thì trận kết thúc.</li>
+  <li>Hết cả hai quan thì trận kết thúc; quân còn trên sân về chủ sân, quân ở ô quan về người ăn cuối. Ai nhiều điểm hơn thắng.</li>
+ </ol>
+ <button class="g" onclick="closeOv('rulesOv')">Đã hiểu</button>
+</div></div>
+
+<div class="ov" id="confOv"><div class="box"><h2>Chơi lại?</h2><p>Trận hiện tại sẽ bị bỏ. Bạn chắc chắn chứ?</p>
+ <button class="r" id="cYes">Chơi mới</button><button onclick="closeOv('confOv')">Quay lại</button></div></div>
+<div class="ov" id="endOv"><div class="box" style="text-align:center"><h2 id="endT"></h2><p id="endP"></p>
+ <button class="g" id="again">Chơi lại ngay</button><button id="toMenu">Về màn hình đầu</button></div></div>
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
